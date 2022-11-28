@@ -4,7 +4,7 @@
 typedef struct {
     const char* name;
     const char* description;
-    unsigned int index;
+    int index;
 } flag;
 
 void flag_parse(int argc, char** argv, char* help);

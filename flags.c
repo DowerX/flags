@@ -23,6 +23,7 @@ int start_with(const char* base, const char* pattern){
 
 void flag_help(){
     element* tmp = flags.next;
+    if(tmp == NULL) return;
     if(help_text) printf("%s\n", help_text);
     int longest = 0;
     while(tmp->next != NULL){
@@ -54,6 +55,7 @@ void flag_parse(int argc, char** argv, char* help){
 
     for(int i = 1; i<argc; i++){
         element* tmp = flags.next;
+        if(tmp == NULL) return;
         if(start_with(argv[i], "--help")) flag_help();
         int ispositional = 1;
         while(tmp->next != NULL){
@@ -101,6 +103,7 @@ flag* flag_add(const char* name, const char* description){
 
 void flag_destory(){
     element* next = flags.next;
+    if(next == NULL) return;
     while(next->next != NULL){
         element* tmp = next->next;
         free(next->flag);
@@ -118,7 +121,7 @@ int flag_has(flag* flag){
 char* clean_string(char* in){
     char* start = in;
     for(int i=0; in[i]!='\0'; i++){
-        if(in[i]=='='){
+        if(in[i]=='='||in[i]==' '){
             start = &in[i+1];
             break;
         }
